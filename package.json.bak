@@ -1,0 +1,23 @@
+{
+  "name": "skillpvp",
+  "version": "0.0.1",
+  "description": "skillPvP by games it used three.js, node.js, and socket.io",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/games0011/skillPvP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/games0011/skillPvP/issues"
+  },
+  "homepage": "https://github.com/games0011/skillPvP#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
