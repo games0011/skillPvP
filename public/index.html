@@ -5,12 +5,13 @@
     <title>game</title>
   </head>
   <body>
+  <canvas id="canvas" width=1600 height=1000></canvas>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     $(function(){
       var GAME_SETTINGS = null;
-      var canvas = document.createElement('canvas');
+      var canvas = document.getElementById('canvas');
       var ctx = canvas.getContext("2d");
       $(canvas).css("display", "block");
       $(canvas).css("border", "black 1px solid");
@@ -33,12 +34,18 @@
         drawBackground();
         idArray.forEach(function(id,i,a){
           ctx.fillStyle = statusArray[id].color;
-          ctx.fillRect(statusArray[id].x,statusArray[id].y,statusArray[id].width,statusArray[id].height);
+          ctx.beginPath();
+          ctx.arc(statusArray[id].x,statusArray[id].y, statusArray[id].width, 0, 2*Math.PI,true);
+          ctx.stroke();
+          ctx.fill();
         });
       });
       function drawBackground(){
         ctx.fillStyle = GAME_SETTINGS.BACKGROUND_COLOR;
         ctx.fillRect(0,0,GAME_SETTINGS.WIDTH,GAME_SETTINGS.HEIGHT);
+        ctx.fillStyle = "#000000";
+        ctx.font = "30px Gulim";
+        ctx.fillText("체력 : "+statusArray[id].health+", 마나 : "+statusArray[id].mana, 20, 20);
       }
     })
     </script>

@@ -30,19 +30,19 @@ io.on('connection', function(socket){
   });
 });
 
-var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+var LEFT = 65, UP = 87, RIGHT = 68, DOWN = 83, ATTACK = 32, Defend = 16, SkillOne = 69, SkillTwo = 81; //움직이기는 wasd, 공격 : space, 방어 : (메이키메이키는 enter, 일반은 shift), 스킬1 : (메이키메이키는 왼_화살표, 일반은 E), 스킬2 : (메이키메이키는 오른_화살표, 일반은 Q)
 var GAME_SETTINGS = {
-  WIDTH : 600, HEIGHT : 400, BACKGROUND_COLOR : "#FFFFFF"
+  WIDTH : 1500, HEIGHT : 1000, BACKGROUND_COLOR : "#FFFFFF", STATUSBAR_WIDTH : 200, STATUSBAR_HEIGHT : 100
 };
 
 var update = setInterval(function(){
   var idArray=[];
   var statusArray={};
   for(var id in io.sockets.clients().connected){
-    if(objects[id].keypress[LEFT])  objects[id].status.x -= 2;
-    if(objects[id].keypress[UP])    objects[id].status.y -= 2;
-    if(objects[id].keypress[RIGHT]) objects[id].status.x += 2;
-    if(objects[id].keypress[DOWN])  objects[id].status.y += 2;
+    if(objects[id].keypress[LEFT])  objects[id].status.x -= objects[id].status.speed;
+    if(objects[id].keypress[UP])    objects[id].status.y -= objects[id].status.speed;
+    if(objects[id].keypress[RIGHT]) objects[id].status.x += objects[id].status.speed;
+    if(objects[id].keypress[DOWN])  objects[id].status.y += objects[id].status.speed;
 
     idArray.push(id);
     statusArray[id]=objects[id].status;
@@ -62,4 +62,9 @@ function UserObject() {
   this.status.width = 20;
   this.status.color = color;
   this.keypress = [];
+  this.status.health = 10;
+  this.status.mana = 15;
+  this.status.character = 0; //Fotia : 0, Nero : 1, Aeras : 2, Gi : 3, Fos : 4, Erebos : 5
+  this.usingSkill = 0; //noSkill : 0, UsingSkillOne : 1, UsingSkillTwo : 2
+  this.status.speed = 3;
 }
