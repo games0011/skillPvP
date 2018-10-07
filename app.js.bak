@@ -43,7 +43,7 @@ var update = setInterval(function(){
     if(objects[id].keypress[UP])    {objects[id].status.y -= objects[id].status.speed; objects[id].status.seeing = 3;}
     if(objects[id].keypress[RIGHT]) {objects[id].status.x += objects[id].status.speed; objects[id].status.seeing = 2;}
     if(objects[id].keypress[DOWN])  {objects[id].status.y += objects[id].status.speed; objects[id].status.seeing = 0;}
-    if(objects[id].keypress[ATTACK]){objects[id].status.usingSkill = 1;}
+    if(objects[id].keypress[ATTACK]){objects[id].status.usingSkill
 
     idArray.push(id);
     statusArray[id]=objects[id].status;

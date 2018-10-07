@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Ping-Pong Online</title>
+    <title>game</title>
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
@@ -16,6 +16,7 @@
       $(canvas).css("border", "black 1px solid");
       $(canvas).css("margin", "0 auto");
       var socket = io();
+      var gameobjects = [];
       $('body').on('keydown', function(e){
         socket.emit('keydown', e.keyCode)
       });
@@ -33,12 +34,32 @@
         drawBackground();
         idArray.forEach(function(id,i,a){
           ctx.fillStyle = statusArray[id].color;
-          ctx.fillRect(statusArray[id].x,statusArray[id].y,statusArray[id].width,statusArray[id].height);
+          ctx.beginPath();
+          ctx.arc(statusArray[id].x,statusArray[id].y, statusArray[id].width, 0, 2*Math.PI,true);
+          ctx.stroke();
+          ctx.fill();
+          ctx.font = "bold 20px Georgia";
+        	ctx.fillText("체력 : "+statusArray[id].health, statusArray[id].x - 40, statusArray[id].y - 30);
+        	if(statusArray[id].seeing == 0) { ctx.fillStyle = statusArray[id].color_; ctx.fillRect(statusArray[id].x-10, statusArray[id].y+10, 20, 10);}
+        	if(statusArray[id].seeing == 1) { ctx.fillStyle = statusArray[id].color_; ctx.fillRect(statusArray[id].x-20, statusArray[id].y-10, 10, 20);}
+        	if(statusArray[id].seeing == 2) { ctx.fillStyle = statusArray[id].color_; ctx.fillRect(statusArray[id].x+10, statusArray[id].y-10, 10, 20);}
+        	if(statusArray[id].seeing == 3) { ctx.fillStyle = statusArray[id].color_; ctx.fillRect(statusArray[id].x-10, statusArray[id].y-20, 20, 10);}
+
+
+        	if(statusArray[id].usingSkill == 1) attack(idArray, statusArray);
         });
       });
+
       function drawBackground(){
         ctx.fillStyle = GAME_SETTINGS.BACKGROUND_COLOR;
         ctx.fillRect(0,0,GAME_SETTINGS.WIDTH,GAME_SETTINGS.HEIGHT);
+      }
+
+      function attack(idArray, statusArray)
+      {
+      	idArray.forEach(function(id, i, a) {
+      		if(statusArray[id].seeing == 0)
+      	}
       }
     })
     </script>
